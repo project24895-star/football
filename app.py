@@ -719,7 +719,12 @@ if not player_data.empty:
 
         consistency_val = player_data.get('Passes accurate, %', 0)
         if isinstance(consistency_val, str):
-            consistency_val = float(consistency_val.replace('%', '').strip())
+            cleaned_val = consistency_val.replace('%', '').strip()
+            try:
+                consistency_val = float(cleaned_val)
+            except ValueError:
+                consistency_val = 0.0
+
         if consistency_val > 0 and consistency_val <= 1.0:
             consistency_val *= 100
         
